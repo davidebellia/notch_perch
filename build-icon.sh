@@ -2,7 +2,7 @@
 set -eu
 cd "$(dirname "$0")"
 # Export the app artwork at standard macOS icon resolutions.
-ICON_SOURCE="Assets/AppIcon.png"
+ICON_SOURCE="assets/AppIcon.png"
 ICON_OUTPUT="build/AppIcon.icns"
 ICON_WORK="$(mktemp -d /private/tmp/notchperch-icon.XXXXXX)"
 trap 'rm -rf "$ICON_WORK"' EXIT HUP INT TERM

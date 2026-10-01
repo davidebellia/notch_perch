@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Assets/AppIcon.png" width="112" alt="NotchPerch bird icon">
+  <img src="assets/AppIcon.png" width="112" alt="NotchPerch bird icon">
 </p>
 
 <h1 align="center">NotchPerch</h1>
@@ -52,9 +52,9 @@ The supplied fixture suite covers successful moves and failure paths. The releas
 ## Project structure
 
 ```text
-Assets/                 Original app icon
-Sources/NotchPerch/      AppKit interface, shelf state, and file transfers
-Tests/                  File-transfer fixture suite
+assets/                 Original app icon
+sources/notchperch/      AppKit interface, shelf state, and file transfers
+tests/                  File-transfer fixture suite
 docs/                   Development guide and product illustration
 build-app.sh            App compilation and local signing
 build-icon.sh           macOS icon generation

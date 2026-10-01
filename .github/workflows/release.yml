@@ -27,9 +27,9 @@ jobs:
           mkdir -p build/tests /private/tmp/notchperch-swift-cache
           swiftc -module-cache-path /private/tmp/notchperch-swift-cache \
             -parse-as-library \
-            Sources/NotchPerch/ShelfCore.swift \
-            Sources/NotchPerch/VerifiedFileMove.swift \
-            Tests/VerifiedFileMoveTests.swift \
+            sources/notchperch/ShelfCore.swift \
+            sources/notchperch/VerifiedFileMove.swift \
+            tests/VerifiedFileMoveTests.swift \
             -framework AppKit -o build/tests/VerifiedFileMoveTests
           ./build/tests/VerifiedFileMoveTests
       - name: Package Apple silicon app

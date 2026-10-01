@@ -18,7 +18,7 @@ codesign --verify --deep --strict build/NotchPerch.app
 open build/NotchPerch.app
 ```
 
-`build-icon.sh` derives the standard icon sizes from `Assets/AppIcon.png`. The scripts place generated output in `build/` and use temporary directories under `/private/tmp`. Build output is not versioned.
+`build-icon.sh` derives the standard icon sizes from `assets/AppIcon.png`. The scripts place generated output in `build/` and use temporary directories under `/private/tmp`. Build output is not versioned.
 
 The app is locally ad hoc signed. Developer ID signing, notarization, release packaging, and Intel compatibility are not configured.
 
@@ -26,10 +26,10 @@ The app is locally ad hoc signed. Developer ID signing, notarization, release pa
 
 | File | Responsibility |
 | --- | --- |
-| `Sources/NotchPerch/main.swift` | App lifecycle, menu bar item, notch detection, animated panel, file rows, drag interactions, and login-item integration. |
-| `Sources/NotchPerch/ShelfCore.swift` | Shelf references, deduplication, transfer notices, and UserDefaults persistence. |
-| `Sources/NotchPerch/VerifiedFileMove.swift` | AppKit file promises, destination checks, source coordination, recovery creation, and move outcomes. |
-| `Tests/VerifiedFileMoveTests.swift` | Disposable file fixtures and injected failures for the transfer implementation. |
+| `sources/notchperch/main.swift` | App lifecycle, menu bar item, notch detection, animated panel, file rows, drag interactions, and login-item integration. |
+| `sources/notchperch/ShelfCore.swift` | Shelf references, deduplication, transfer notices, and UserDefaults persistence. |
+| `sources/notchperch/VerifiedFileMove.swift` | AppKit file promises, destination checks, source coordination, recovery creation, and move outcomes. |
+| `tests/VerifiedFileMoveTests.swift` | Disposable file fixtures and injected failures for the transfer implementation. |
 
 ```mermaid
 flowchart LR
@@ -53,9 +53,9 @@ The suite is a standalone AppKit executable rather than an XCTest or Swift Packa
 mkdir -p build/tests /private/tmp/notchperch-swift-cache
 swiftc -module-cache-path /private/tmp/notchperch-swift-cache \
   -parse-as-library -target arm64-apple-macosx13.0 \
-  Sources/NotchPerch/ShelfCore.swift \
-  Sources/NotchPerch/VerifiedFileMove.swift \
-  Tests/VerifiedFileMoveTests.swift \
+  sources/notchperch/ShelfCore.swift \
+  sources/notchperch/VerifiedFileMove.swift \
+  tests/VerifiedFileMoveTests.swift \
   -framework AppKit -o build/tests/VerifiedFileMoveTests
 ./build/tests/VerifiedFileMoveTests
 ```
@@ -82,7 +82,7 @@ Real Finder transfers, hover and animation, cross-volume behavior, and launch at
 
 ## Visual assets
 
-`Assets/AppIcon.png` is the original bird icon supplied with the project; it was created with image generation tools. `docs/images/notchperch-overview.png` is a generated product illustration for the README, not a captured application screenshot. Replace or supplement it with verified screenshots when available.
+`assets/AppIcon.png` is the original bird icon supplied with the project; it was created with image generation tools. `docs/images/notchperch-overview.png` is a generated product illustration for the README, not a captured application screenshot. Replace or supplement it with verified screenshots when available.
 
 ## Release automation
 
