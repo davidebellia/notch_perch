@@ -27,8 +27,8 @@ The shelf hides after the pointer leaves. Its expansion respects macOS Reduce Mo
 Requires an Apple silicon Mac running macOS 13 or later and Apple's Command Line Tools (`xcode-select --install`). The current build script targets `arm64`; an Intel build is not supplied. No third-party packages, API keys, or backend services are required.
 
 ```sh
-git clone https://github.com/davidebellia/notch_nest.git
-cd notch_nest
+git clone https://github.com/davidebellia/notch_perch.git
+cd notch_perch
 ./build-app.sh
 open build/NotchPerch.app
 ```
@@ -60,7 +60,7 @@ Generated bundles and macOS metadata are ignored by Git.
 
 See the [development guide](docs/development.md) for architecture, tests, and a manual verification checklist. See [CONTRIBUTING.md](CONTRIBUTING.md) for bug reports and proposed changes.
 
-The app was previously named Drop. Its bundle identifier remains `dev.local.drop` and its preference key remains `shelfItemPaths` to preserve existing shelf references. The application is named **NotchPerch**; its repository retains the original name **notch_nest**.
+The app was previously named Drop. Its bundle identifier remains `dev.local.drop` and its preference key remains `shelfItemPaths` to preserve existing shelf references. The application is named **NotchPerch** and its repository is **notch_perch**.
 
 ## License
 
