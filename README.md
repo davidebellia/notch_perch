@@ -22,7 +22,13 @@ The shelf hides after the pointer leaves. Its expansion respects macOS Reduce Mo
 
 **Remove clears a shelf reference only.** It does not delete the original file. Dragging a file out uses a different operation: NotchPerch writes and checks the destination before removing the source to complete a move.
 
-## Build and launch
+## Download the app
+
+[**Download NotchPerch 0.1.0 for Apple silicon**](https://github.com/davidebellia/notch_perch/releases/download/v0.1.0/NotchPerch-0.1.0-macOS-arm64.zip) · [Release notes and checksum](https://github.com/davidebellia/notch_perch/releases/tag/v0.1.0)
+
+Unzip the download, move **NotchPerch.app** to Applications, and launch it. Requires macOS 13 or later on an Apple silicon Mac. This is a prototype with an ad hoc signature, without Apple notarization; macOS may block opening it. The release page explains its development-build status. GitHub's automatically generated source archives contain code, not the compiled app.
+
+## Build from source
 
 Requires an Apple silicon Mac running macOS 13 or later and Apple's Command Line Tools (`xcode-select --install`). The current build script targets `arm64`; an Intel build is not supplied. No third-party packages, API keys, or backend services are required.
 
@@ -41,7 +47,7 @@ On displays without a detectable camera notch, automatic hover opening is disabl
 
 Drag-out currently supports regular files only, excluding directories and symbolic links. The app uses AppKit file promises, checks the destination and source contents, and creates a temporary recovery file before source removal. A committed move removes the shelf reference. Cancellation, conflicts, changed sources, and errors retain the reference and report the outcome. An unsuccessful move can leave a destination copy or recovery file; check the displayed notice before retrying.
 
-The supplied fixture suite covers successful moves and failure paths. Historical development notes report that it passed on macOS; those results have not been independently reproduced in this Linux publication environment. Real Finder drag-and-drop, hover behavior, animation, cross-volume moves, and launch at login still need end-to-end validation. Use disposable files when evaluating the prototype.
+The supplied fixture suite covers successful moves and failure paths. The release workflow successfully built the app on macOS, verified its ad hoc signature and bundle metadata, and ran the fixture suite before publishing the download. Real Finder drag-and-drop, hover behavior, animation, cross-volume moves, and launch at login still need end-to-end validation. Use disposable files when evaluating the prototype.
 
 ## Project structure
 

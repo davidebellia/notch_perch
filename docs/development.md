@@ -64,7 +64,7 @@ A successful run prints `VerifiedFileMoveTests passed`. Unhandled failures exit 
 
 Fixtures use a temporary directory and an isolated UserDefaults domain. The suite covers commits, cancellation, destination conflicts, same-path rejection, source changes, already-moved sources, unaccepted final operations, recovery fallback failures, source-removal failures, rollback, long Unicode filenames, and persisted references.
 
-These commands are provided for macOS development and have not been executed in the Linux environment used to prepare this repository. Fixture success does not validate a real Finder drag.
+The release workflow compiles and runs this fixture suite on a macOS runner, and completed successfully for the first prototype release. Fixture success does not validate a real Finder drag.
 
 ## Manual verification
 
@@ -83,3 +83,7 @@ Real Finder transfers, hover and animation, cross-volume behavior, and launch at
 ## Visual assets
 
 `Assets/AppIcon.png` is the original bird icon supplied with the project; it was created with image generation tools. `docs/images/notchperch-overview.png` is a generated product illustration for the README, not a captured application screenshot. Replace or supplement it with verified screenshots when available.
+
+## Release automation
+
+`.github/workflows/release.yml` builds the Apple silicon app on macOS, verifies its signature and plist, runs the fixtures, packages the bundle, and uploads the app and checksum to the prototype release. The first published release is [NotchPerch 0.1.0](https://github.com/davidebellia/notch_perch/releases/tag/v0.1.0); its [release notes](release-notes-v0.1.0.md) explain compatibility and validation limits. The current workflow targets that specific prototype version; prepare a new version and update the release configuration before shipping future changes.
