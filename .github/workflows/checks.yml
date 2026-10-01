@@ -1,0 +1,34 @@
+name: Check macOS app
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: macos-14
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Build and verify app signature
+        run: |
+          ./build-app.sh
+          codesign --verify --deep --strict build/NotchPerch.app
+      - name: Run file-transfer fixture tests
+        run: |
+          mkdir -p build/tests /private/tmp/notchperch-swift-cache
+          swiftc -module-cache-path /private/tmp/notchperch-swift-cache \
+            -parse-as-library sources/notchperch/ShelfCore.swift \
+            sources/notchperch/VerifiedFileMove.swift tests/VerifiedFileMoveTests.swift \
+            -framework AppKit -o build/tests/VerifiedFileMoveTests
+          ./build/tests/VerifiedFileMoveTests
+      - name: Run pointer geometry regression tests
+        run: |
+          swiftc -module-cache-path /private/tmp/notchperch-swift-cache \
+            -parse-as-library sources/notchperch/ShelfPointerGeometry.swift \
+            tests/ShelfPointerGeometryTests.swift -framework AppKit \
+            -o build/tests/ShelfPointerGeometryTests
+          ./build/tests/ShelfPointerGeometryTests
