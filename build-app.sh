@@ -25,7 +25,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 </dict></plist>
 PLIST
 swiftc -module-cache-path /private/tmp/notchperch-swift-cache -parse-as-library -O \
-  -target arm64-apple-macosx13.0 sources/notchperch/ShelfCore.swift sources/notchperch/VerifiedFileMove.swift sources/notchperch/main.swift \
+  -target arm64-apple-macosx13.0 sources/notchperch/ShelfCore.swift sources/notchperch/ShelfPointerGeometry.swift sources/notchperch/VerifiedFileMove.swift sources/notchperch/main.swift \
   -framework AppKit -framework ServiceManagement \
   -o "$APP/Contents/MacOS/NotchPerch"
 codesign --force --deep --sign - "$APP"

@@ -249,6 +249,7 @@ final class ShelfWindowController: NSWindowController {
 
     private func screen(containing point: NSPoint) -> NSScreen? {
         NSScreen.screens.first { $0.frame.contains(point) }
+            ?? NSScreen.screens.first { ShelfPointerGeometry.contains(point, in: $0.frame) }
     }
 
     private func triggerFrame(on screen: NSScreen) -> NSRect? {
@@ -265,8 +266,8 @@ final class ShelfWindowController: NSWindowController {
 
     func updatePointer(_ point: NSPoint, duringDrag: Bool = false) {
         let pointedScreen = screen(containing: point) ?? currentScreen
-        let inTrigger = pointedScreen.flatMap { triggerFrame(on: $0) }.map { $0.contains(point) } ?? false
-        let inPanel = window?.isVisible == true && window?.frame.contains(point) == true
+        let inTrigger = pointedScreen.flatMap { triggerFrame(on: $0) }.map { ShelfPointerGeometry.contains(point, in: $0) } ?? false
+        let inPanel = window?.isVisible == true && window.map { ShelfPointerGeometry.contains(point, in: $0.frame) } == true
         if inTrigger || inPanel {
             hideTimer?.invalidate()
             hideTimer = nil
@@ -287,8 +288,8 @@ final class ShelfWindowController: NSWindowController {
             guard let self, self.interactionDepth == 0 else { return }
             let point = NSEvent.mouseLocation
             let screen = self.screen(containing: point) ?? self.currentScreen
-            let inTrigger = screen.flatMap { self.triggerFrame(on: $0) }.map { $0.contains(point) } ?? false
-            let inPanel = self.window?.frame.contains(point) == true
+            let inTrigger = screen.flatMap { self.triggerFrame(on: $0) }.map { ShelfPointerGeometry.contains(point, in: $0) } ?? false
+            let inPanel = self.window.map { ShelfPointerGeometry.contains(point, in: $0.frame) } == true
             if !inTrigger && !inPanel { self.hideShelf() }
             self.hideTimer = nil
         }

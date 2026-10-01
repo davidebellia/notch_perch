@@ -32,6 +32,13 @@ jobs:
             tests/VerifiedFileMoveTests.swift \
             -framework AppKit -o build/tests/VerifiedFileMoveTests
           ./build/tests/VerifiedFileMoveTests
+      - name: Run pointer geometry regression tests
+        run: |
+          swiftc -module-cache-path /private/tmp/notchperch-swift-cache \
+            -parse-as-library sources/notchperch/ShelfPointerGeometry.swift \
+            tests/ShelfPointerGeometryTests.swift -framework AppKit \
+            -o build/tests/ShelfPointerGeometryTests
+          ./build/tests/ShelfPointerGeometryTests
       - name: Package Apple silicon app
         run: |
           mkdir -p build/release
