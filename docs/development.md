@@ -27,6 +27,7 @@ The app is locally ad hoc signed. Developer ID signing, notarization, release pa
 | File | Responsibility |
 | --- | --- |
 | `sources/notchperch/main.swift` | App lifecycle, menu bar item, notch detection, animated panel, file rows, drag interactions, and login-item integration. |
+| `sources/notchperch/ShelfPointerGeometry.swift` | Inclusive upper-edge pointer checks for notch, shelf, hide timer, and display fallback. |
 | `sources/notchperch/ShelfCore.swift` | Shelf references, deduplication, transfer notices, and UserDefaults persistence. |
 | `sources/notchperch/VerifiedFileMove.swift` | AppKit file promises, destination checks, source coordination, recovery creation, and move outcomes. |
 | `tests/VerifiedFileMoveTests.swift` | Disposable file fixtures and injected failures for the transfer implementation. |
@@ -65,6 +66,23 @@ A successful run prints `VerifiedFileMoveTests passed`. Unhandled failures exit 
 Fixtures use a temporary directory and an isolated UserDefaults domain. The suite covers commits, cancellation, destination conflicts, same-path rejection, source changes, already-moved sources, unaccepted final operations, recovery fallback failures, source-removal failures, rollback, long Unicode filenames, and persisted references.
 
 The release workflow compiles and runs this fixture suite on a macOS runner, and completed successfully for the first prototype release. Fixture success does not validate a real Finder drag.
+
+## Pointer geometry regression tests
+
+From the repository root on macOS:
+
+```sh
+mkdir -p build/tests /private/tmp/notchperch-swift-cache
+swiftc -module-cache-path /private/tmp/notchperch-swift-cache \
+  -parse-as-library sources/notchperch/ShelfPointerGeometry.swift \
+  tests/ShelfPointerGeometryTests.swift -framework AppKit \
+  -o build/tests/ShelfPointerGeometryTests
+./build/tests/ShelfPointerGeometryTests
+```
+
+The suite checks movement up through the notch to the exact upper screen edge, points above it, lateral and lower exits, displays with negative coordinates, and empty frames. The same geometry helper is used during pointer updates and by the delayed hide check. The physical upper edge is included without extending the horizontal activation area.
+
+For manual verification, move up through the notch to the top screen edge: the shelf should stay open. Leave sideways or downward: it should close after the normal delay. A physical pointer test remains separate from the automated geometry checks.
 
 ## Manual verification
 
